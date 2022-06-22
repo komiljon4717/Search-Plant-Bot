@@ -1,10 +1,13 @@
 {
   "dependencies": {
     "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "form-data": "^4.0.0",
     "node-telegram-bot-api": "^0.57.0",
-    "nodemailer": "^6.7.5"
+    "nodemailer": "^6.7.5",
+    "otp-generator": "^4.0.0",
+    "sequelize": "^6.21.0"
   },
   "name": "telegrambot",
   "version": "1.0.0",
@@ -17,7 +20,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/komiljon4717/Search-Plant-Bot.git"

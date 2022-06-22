@@ -8,7 +8,7 @@ const image_1 = process.cwd() + '/img/1.jpg';
 const image_2 = process.cwd() + '/img/2.jpg';
 
 
-(async () => {
+async function find(){
 		let form = new FormData();
 
 		form.append('organs', 'leaf');
@@ -35,4 +35,9 @@ const image_2 = process.cwd() + '/img/2.jpg';
             console.log("dang");
 			console.error('error', error.message);
 		}
-})();
+}
+
+
+export {
+	find
+}

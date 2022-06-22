@@ -1,6 +1,8 @@
 import TelegramBot from 'node-telegram-bot-api'
-import nodemailer from 'nodemailer'
-
+import  { find }  from '../utils/checker.js'
+import  { sendMailer }  from '../utils/sendmailer.js'
+import fs from 'fs';
+import path from 'path';
 
 const token = '5315396035:AAFR-pMPG78205PaXExcmN3iaDn0R2Qj190';
 
@@ -17,46 +19,34 @@ const bot = new TelegramBot(token, {polling: true});
 
 
 bot.on('message', (msg) => {
+    try {
+        
+        const chatId = msg.chat.id;
 
-    const chatId = msg.chat.id;
+        if (msg.text == "/start") {
+            const first_name = msg.from.first_name
+            const last_name =  msg.from.last_name
 
-    if (msg.text == "/start") {
-        bot.sendMessage(msg.chat.id, "Salom botga xush kelibsiz! Raqamingizni jo'nating")
-        return
+            bot.sendMessage(chatId, `Assalomu alaykum <b>${first_name} ${last_name}</b> SearchPlant botga xush kelibsiz! Botdan to'liq boydalinish uchun elektron pochtangizni bizga yuboring!`, {parse_mode: "HTML"})
+            return
+        }
+        if (msg.text.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+            bot.sendMessage(msg.chat.id, "e pochta to'g'ri")
+            sendMailer(msg.text)
+            console.log(process.code);
+        }else{
+            bot.sendMessage(msg.chat.id, "Emailni noto'g'ri kiritdingiz")
+        }
+    } catch (error) {
+        fs.WriteFileSync(path.join(process.swd() + '/log.txt'))
     }
-    if (msg.text.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-        bot.sendMessage(msg.chat.id, "e pochta to'g'ri")
-    }else{
-        bot.sendMessage(msg.chat.id, "Emailni noto'g'ri kiritdingiz")
-    }
+
+
+    
 
 
       
-    let transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-        user: 'komiljon4717@gmail.com',
-        pass: "kaxgoqqjqgartbpx",
-        },
-    });
     
-    let mailer = message => {
-        transporter.sendMail(message, (err, info) => {
-            if (err) {
-                return console.log(err);
-            }
-            console.log("ok", info);
-        });
-
-    }
-
-    mailer({
-        from: '"Fred Foo 👻" <foo@example.com>',
-        to: "komiljonnosirov4717@gmail.com",
-        subject: "Hello bashara✔",
-        text: "Hello world?",
-        html: "<b>Hello world?</b>",
-    })
 
 
 });
