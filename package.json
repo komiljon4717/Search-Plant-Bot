@@ -3,18 +3,28 @@
     "axios": "^0.27.2",
     "express": "^4.18.1",
     "form-data": "^4.0.0",
-    "node-telegram-bot-api": "^0.57.0"
+    "node-telegram-bot-api": "^0.57.0",
+    "nodemailer": "^6.7.5"
   },
   "name": "telegrambot",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start:dev": "nodemon ./server.js",
-    "start": "node ./server.js"
+    "start:dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/komiljon4717/Search-Plant-Bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/komiljon4717/Search-Plant-Bot/issues"
+  },
+  "homepage": "https://github.com/komiljon4717/Search-Plant-Bot#readme",
   "description": ""
 }
