@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import  { codeGenerator }  from '../utils/codeGenerator.js'
+import  { codeGenerator }  from './codeGenerator.js'
 import fs from 'fs'
 
 
@@ -29,12 +29,12 @@ function sendMailer(email) {
         mailer({
             from: 'komiljon4717@gmail.com',
             to: email,
-            subject: "Hello✔",
+            subject: "Hello bashara✔",
             text: "Verification code",
             html: "<b>Verification code:</b>" + code,
         })
     } catch (error) {
-        
+        console.log(error.message);
     }
     
 }

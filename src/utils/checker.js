@@ -4,8 +4,8 @@ import axios from 'axios'
 import FormData from 'form-data'
 import util from 'util'
 
-const image_1 = process.cwd() + '/img/1.jpg';
-const image_2 = process.cwd() + '/img/2.jpg';
+const image_1 = process.cwd() + '/uploads/1.jpg';
+const image_2 = process.cwd() + '/uploads/2.jpg';
 
 
 async function find(){

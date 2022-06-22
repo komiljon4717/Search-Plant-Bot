@@ -1,22 +1,14 @@
+import  { sendMailer }  from './utils/sendmailer.js'
 import TelegramBot from 'node-telegram-bot-api'
-import  { find }  from '../utils/checker.js'
-import  { sendMailer }  from '../utils/sendmailer.js'
-import fs from 'fs';
+import  { find }  from './utils/checker.js'
+import token from "./config.js"
 import path from 'path';
-
-const token = '5315396035:AAFR-pMPG78205PaXExcmN3iaDn0R2Qj190';
-
-const bot = new TelegramBot(token, {polling: true});
-
-
-// bot.on('polling_error', (error) => {
-//     console.log(error.code);  // => 'EFATAL'
-//     console.log(error.response.body);
-// });
+import fs from 'fs';
+import { database } from "./models/user/sequelize.js"
+const psql = database()
 
 
-
-
+const bot = new TelegramBot(token.TOKEN, {polling: true});
 
 bot.on('message', (msg) => {
     try {
@@ -31,14 +23,15 @@ bot.on('message', (msg) => {
             return
         }
         if (msg.text.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-            bot.sendMessage(msg.chat.id, "e pochta to'g'ri")
             sendMailer(msg.text)
+            bot.sendMessage(msg.chat.id, "Sizning elektron pochtangizga tasdiqlash kodini jo'natdik. Kodni terib ro'yxatdan o'ting")
             console.log(process.code);
         }else{
             bot.sendMessage(msg.chat.id, "Emailni noto'g'ri kiritdingiz")
         }
     } catch (error) {
-        fs.WriteFileSync(path.join(process.swd() + '/log.txt'))
+        console.log(error.message);
+        // fs.WriteFileSync(path.join(process.swd() + '/log.txt'))
     }
 
 
