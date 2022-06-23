@@ -1,13 +1,20 @@
 import { Sequelize } from 'sequelize'
 import postgres  from '../../config.js'
+import { userModel } from "./model.js";
 
 
-const sequelize = new Sequelize(postgres.POSTGRES)
+const sequelize = new Sequelize(postgres.POSTGRES, {
+    logging: false})
 
 async function database () {
     try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
+        let db = {}
+
+        db.user = await userModel(Sequelize, sequelize)
+
+        await sequelize.sync({ force: false })
+        return db
+        
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
