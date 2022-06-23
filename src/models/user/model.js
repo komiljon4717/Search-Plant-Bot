@@ -7,13 +7,14 @@ async function userModel (Sequelize, sequelize) {
             primaryKey: true
         },
         first_name: {
-            type: Sequelize.DataTypes.STRING,
+            type: Sequelize.DataTypes.STRING(40),
         },
         last_name: {
-            type: Sequelize.DataTypes.STRING,
+            type: Sequelize.DataTypes.STRING(40),
         },
         email: {
-            type: Sequelize.DataTypes.STRING,
+            type: Sequelize.DataTypes.STRING(100),
+            unique: true
         },
         step: {
             type: Sequelize.DataTypes.SMALLINT,

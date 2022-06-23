@@ -1,7 +1,9 @@
-import nodemailer from 'nodemailer'
 import  { codeGenerator }  from './codeGenerator.js'
+import nodemailer from 'nodemailer'
+import config from '../config.js'
 import fs from 'fs'
 
+const myEmail = config.emailaddress
 
 function sendMailer(email) {
     try {
@@ -11,8 +13,8 @@ function sendMailer(email) {
         let transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-            user: 'komiljon4717@gmail.com',
-            pass: "kaxgoqqjqgartbpx",
+            user: myEmail,
+            pass: config.pass,
             }
         });
         
@@ -27,9 +29,9 @@ function sendMailer(email) {
         }
 
         mailer({
-            from: 'komiljon4717@gmail.com',
+            from: myEmail,
             to: email,
-            subject: "Hello bashara✔",
+            subject: "Hello",
             text: "Verification code",
             html: "<b>Verification code:</b>" + code,
         })
