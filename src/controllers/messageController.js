@@ -1,4 +1,5 @@
 import { sendMailer } from '../utils/sendmailer.js'
+let res = null
 
 
 
@@ -32,11 +33,9 @@ async function messageController (msg, bot, psql) {
             await chackCode(text, bot, psql, user)
         }
         else {
-            bot.sendMessage(chat_id, "Siz botda eskisiz")
+            bot.sendMessage(chat_id, "Siz avval botdan ro'yxatdan o'tgansiz")
         }
-
-
-
+        
 
 
         async function setEmail (text, bot, psql, user) {
@@ -52,8 +51,18 @@ async function messageController (msg, bot, psql) {
                     })
                     sendMailer(text)
 
-
-                    bot.sendMessage(user.chat_id, `Sizning ${text} manzilingizga tasdiqlash kodi yuborildi. Kodni kiriting`)
+                    res = await bot.sendMessage(user.chat_id, `Sizning ${text} manzilingizga tasdiqlash kodi yuborildi. Kodni kiriting`, {
+                        reply_markup: {
+                            resize_keyboard: true,
+                            keyboard: [
+                                [
+                                    {
+                                        text: "Boshqa emailga jo'natish",
+                                    }
+                                ]
+                            ]
+                        }
+                    })
                 } else {
                     bot.sendMessage(user.chat_id, "Noto'g'ri email address kiritdingiz. Iltimos qaytadan kiriting")
                 }
@@ -63,9 +72,8 @@ async function messageController (msg, bot, psql) {
                 }
                 console.log(error.message);
             }
-
-            
         }
+
 
         async function chackCode (text, bot, psql, user) {
             if (text == process.code) {
@@ -77,15 +85,41 @@ async function messageController (msg, bot, psql) {
                     }
                 })
 
-                bot.sendMessage(user.chat_id, "Siz muvaffaqiyatli ro'yxatdan o'tdingiz. Siz endi bizning xizmatlardan bemalol fodalanishingiz mumkin")
+                bot.sendMessage(user.chat_id, "Siz muvaffaqiyatli ro'yxatdan o'tdingiz. Siz endi bizning xizmatlardan bemalol fodalanishingiz mumkin", {
+                    reply_markup: {
+                        remove_keyboard: true
+                    }
+                })
+            }
+            else if(text == "Boshqa emailga jo'natish") {
+                await back(bot, psql, user)
             }
             else {
+                console.log(text);
                 bot.sendMessage(user.chat_id, "Siz noto'g'ri kod kiritdingiz iltimos qaytadan kiriting")
             }
         }
+
+        async function back (bot, psql, user) {
+            await psql.user.update({
+                step: 1,
+                email: null
+            }, {
+                where: {
+                    chat_id: user.chat_id
+                }
+            })
+
+            bot.sendMessage(user.chat_id, "Qaytadan emailingizni jo'nating", {
+                reply_markup: {
+                    remove_keyboard: true
+                }
+            })
+        }
+
        
     } catch (error) {
-        console.log(error.message);
+        console.log("dang", error.message);
     }
 }
 
