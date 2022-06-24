@@ -23,7 +23,6 @@ function sendMailer(email) {
                 if (err) {
                     return console.log(err);
                 }
-                // console.log("ok", info);
             });
 
         }
@@ -31,7 +30,7 @@ function sendMailer(email) {
         mailer({
             from: myEmail,
             to: email,
-            subject: "Hello",
+            subject: "Search Plant Bot",
             text: "Verification code",
             html: "<b>Verification code:</b>" + code,
         })
