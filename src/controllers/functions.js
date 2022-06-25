@@ -64,6 +64,11 @@ async function chackCode (text, bot, psql, user) {
                         {
                             text: "Wikipediadan qidirish",
                         }
+                    ],
+                    [
+                        {
+                            text: "Mening rasmlarim"
+                        }
                     ]
                 ]
             }
@@ -96,7 +101,40 @@ async function back (bot, psql, user) {
     })
 }
 
+// ==========================================================================
 
+
+async function notificationPic (bot, psql, user) {
+    bot.sendMessage(user.chat_id, "Bitta so'rovda 1 tadan 5 tagacha rasm yuborish mimkin. Kichik tomoni 600px dan kattaroq va 2000px dan kichikroq tasvirlardan foydalanishni tavsiya qilamiz. Ideal holatda, 1280x1280 piksel bo'ladi. Ko'rsatilgan piksellardan past rasmlarni aniqlanish darajasi past bo'ladi", {
+        reply_markup: {
+            remove_keyboard: true,
+            resize_keyboard: true,
+            keyboard: [
+                [
+                    {
+                        text: "🌿leaf => barg"
+                    },
+                    {
+                        text:"🌸flower => gul"
+                    },
+                ],
+                [
+                    {
+                        text: "🍏fruit => meva"
+                    },
+                    {
+                        text: "root => ildiz"
+                    }
+                ],
+                [
+                    {
+                        text: "Jo'natish"
+                    }
+                ]
+            ]
+        }
+    })
+}
 
 
 
@@ -106,5 +144,6 @@ async function back (bot, psql, user) {
 
 export {
     setEmail,
-    chackCode
+    chackCode,
+    notificationPic
 }

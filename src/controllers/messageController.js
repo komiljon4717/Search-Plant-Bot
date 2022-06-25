@@ -1,6 +1,4 @@
-
-
-import { setEmail, chackCode } from "./functions.js"
+import { setEmail, chackCode, notificationPic } from "./functions.js"
 
 
 async function messageController (msg, bot, psql) {
@@ -23,7 +21,7 @@ async function messageController (msg, bot, psql) {
                 first_name: first_name,
                 last_name: last_name,
             })
-            bot.sendMessage(chat_id, `Assalomu alaykum <b>${first_name} ${last_name}</b> SearchPlant botga xush kelibsiz! Botdan to'liq boydalinish uchun elektron pochtangizni bizga yuboring!`, {parse_mode: "HTML"})
+            bot.sendMessage(chat_id, `Assalomu alaykum <b>${first_name} ${last_name} <i>Search Plant</i></b> botga xush kelibsiz! Botdan to'liq boydalinish uchun elektron pochtangizni bizga yuboring!`, {parse_mode: "HTML"})
         }
         else if (user.step == 1) {
             await setEmail(text, bot, psql, user)
@@ -31,8 +29,11 @@ async function messageController (msg, bot, psql) {
         else if (user.step == 2) {
             await chackCode(text, bot, psql, user)
         }
+        else if (user.step == 3 && text == "🖼 bilan qidirish") {
+            await notificationPic(bot, psql, user)
+        }
         else {
-            bot.sendMessage(chat_id, "Siz avval botdan ro'yxatdan o'tgansiz")
+            await bot.sendMessage(chat_id, "Siz avval botdan ro'yxatdan o'tgansiz")
         }
     } catch (error) {
         console.log("dang", error.message);

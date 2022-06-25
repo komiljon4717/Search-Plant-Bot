@@ -2,7 +2,9 @@
 
 
 async function pictureController (msg, bot, psql) {
-    console.log("picture");
+    
+    let file = await bot.getFile(msg.photo[0].file_id)
+    console.log(file);
 }
 
 

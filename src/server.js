@@ -16,7 +16,7 @@ async function main () {
 
     const psql = await database()
     await bot.on('text', (msg) => messageController(msg, bot, psql));
-    // await bot.on('text', (msg) => pictureController(msg, bot, psql));
+    await bot.on('photo', (msg) => pictureController(msg, bot, psql));
 
 
 
