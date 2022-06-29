@@ -1,11 +1,11 @@
-import { setEmail, chackCode, notificationPic, changeOrganName, mainMenuBtn } from "./functions.js"
+import { setEmail, chackCode, notificationPic, changeOrganName, mainMenuBtn, cancelBtn } from "./functions.js"
 import { find } from "../utils/checker.js"
 
 
 async function messageController (msg, bot, psql) {
     try {
 
-        const btns = ["🌿leaf => barg", "🌸flower => gul", "🍏fruit => meva", "root => ildiz"]
+        const btns = ["🌿leaf => barg", "🌸flower => gul", "🍏fruit => meva", "auto => auto"]
 
         const chat_id = msg.chat.id
         const text = msg.text
@@ -32,9 +32,6 @@ async function messageController (msg, bot, psql) {
         else if (user.step == 2 ) {
             await chackCode(text, bot, psql, user)
         }
-        // else if (user.step == 3 || user.step == 3 && text == "/start"){
-
-        // }
         else if (user.step == 3 && text == "🖼Rasm bilan qidirish" ) {
             await notificationPic(bot, psql, user)
         }
@@ -48,6 +45,9 @@ async function messageController (msg, bot, psql) {
         }
         else if ( user.step == 3 && text == "📤Jo'natish" ) {
             find(bot, psql, user)
+        }
+        else if ( user.step == 3 && text == "Bekor qilish" ) {
+            cancelBtn(bot, psql, user)
         }
         else {
             if (user.step == 3 || user.step == 3 && text == "/start") {

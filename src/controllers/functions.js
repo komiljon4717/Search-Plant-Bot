@@ -103,12 +103,15 @@ async function notificationPic (bot, psql, user) {
                         text: "🍏fruit => meva"
                     },
                     {
-                        text: "root => ildiz"
+                        text: "auto => auto"
                     }
                 ],
                 [
                     {
                         text: "📤Jo'natish"
+                    },
+                    {
+                        text: "Bekor qilish"
                     }
                 ]
             ]
@@ -116,6 +119,7 @@ async function notificationPic (bot, psql, user) {
     })
 }
 
+// ======================================================
 
 async function changeOrganName (text) {
     if (text == "🌿leaf => barg") {
@@ -127,11 +131,12 @@ async function changeOrganName (text) {
     else if (text == "🍏fruit => meva") {
         process.organs.push("fruit")
     }
-    else if (text == "root => ildiz") {
-        process.organs.push("root")
+    else if (text == "auto => auto") {
+        process.organs.push("auto")
     }
 }
 
+// ============================================================
 
 async function mainMenuBtn (text, bot, psql, user) {
     try {
@@ -161,7 +166,17 @@ async function mainMenuBtn (text, bot, psql, user) {
     }
 }
 
+// =====================================================================
 
+async function cancelBtn (bot, psql, user) {
+    process.pictures = []
+    process.organs = []
+    bot.sendMessage(user.chat_id, "Rasm va ma'lumotlarni qaytadan kiriting")
+}
+
+async function deleteBtn () {
+    
+}
 
 
 
@@ -169,6 +184,7 @@ async function mainMenuBtn (text, bot, psql, user) {
 
 export {
     setEmail,
+    cancelBtn,
     chackCode,
     mainMenuBtn,
     notificationPic,
