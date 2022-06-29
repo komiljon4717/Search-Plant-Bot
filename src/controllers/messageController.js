@@ -1,8 +1,11 @@
-import { setEmail, chackCode, notificationPic } from "./functions.js"
+import { setEmail, chackCode, notificationPic, changeOrganName, mainMenuBtn } from "./functions.js"
+import { find } from "../utils/checker.js"
 
 
 async function messageController (msg, bot, psql) {
     try {
+
+        const btns = ["🌿leaf => barg", "🌸flower => gul", "🍏fruit => meva", "root => ildiz"]
 
         const chat_id = msg.chat.id
         const text = msg.text
@@ -26,14 +29,32 @@ async function messageController (msg, bot, psql) {
         else if (user.step == 1) {
             await setEmail(text, bot, psql, user)
         }
-        else if (user.step == 2) {
+        else if (user.step == 2 ) {
             await chackCode(text, bot, psql, user)
         }
-        else if (user.step == 3 && text == "🖼 bilan qidirish") {
+        // else if (user.step == 3 || user.step == 3 && text == "/start"){
+
+        // }
+        else if (user.step == 3 && text == "🖼Rasm bilan qidirish" ) {
             await notificationPic(bot, psql, user)
         }
+        else if ( user.step == 3 && btns.includes(text) ) {
+            if (process.pictures.length == (process.organs.length + 1)) {
+                changeOrganName(text)
+            }
+            else{
+                bot.sendMessage(chat_id, "Yuklangan rasmda qaysi organ borligini ko'rsatilgandan keyin yana rasm yuklash kerak yoki <b><i>Jo'natish</i></b> tugmasini bosish kerak", {parse_mode: "HTML"})
+            }
+        }
+        else if ( user.step == 3 && text == "📤Jo'natish" ) {
+            find(bot, psql, user)
+        }
         else {
-            await bot.sendMessage(chat_id, "Siz avval botdan ro'yxatdan o'tgansiz")
+            if (user.step == 3 || user.step == 3 && text == "/start") {
+                mainMenuBtn(text, bot, psql, user)
+            }else{
+                await bot.sendMessage(chat_id, "Siz avval botdan ro'yxatdan o'tgansiz")
+            }
         }
     } catch (error) {
         console.log("dang", error.message);

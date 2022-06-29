@@ -1,5 +1,4 @@
 import TelegramBot from 'node-telegram-bot-api'
-import  { find }  from './utils/checker.js'
 import token from "./config.js"
 import { database } from "./models/user/sequelize.js"
 
@@ -17,7 +16,7 @@ async function main () {
     const psql = await database()
     await bot.on('text', (msg) => messageController(msg, bot, psql));
     await bot.on('photo', (msg) => pictureController(msg, bot, psql));
-
+    console.log("main run");
 
 
 }

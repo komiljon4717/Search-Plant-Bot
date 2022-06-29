@@ -52,27 +52,7 @@ async function chackCode (text, bot, psql, user) {
             }
         })
 
-        bot.sendMessage(user.chat_id, "Siz muvaffaqiyatli ro'yxatdan o'tdingiz. Siz endi bizning xizmatlardan bemalol fodalanishingiz mumkin", {
-            reply_markup: {
-                remove_keyboard: true,
-                resize_keyboard: true,
-                keyboard: [
-                    [
-                        {
-                            text: "🖼 bilan qidirish",
-                        },
-                        {
-                            text: "Wikipediadan qidirish",
-                        }
-                    ],
-                    [
-                        {
-                            text: "Mening rasmlarim"
-                        }
-                    ]
-                ]
-            }
-        })
+        mainMenuBtn(text, bot, psql, user)
     }
     else if(text == "Boshqa emailga jo'natish") {
         await back(bot, psql, user)
@@ -128,12 +108,57 @@ async function notificationPic (bot, psql, user) {
                 ],
                 [
                     {
-                        text: "Jo'natish"
+                        text: "📤Jo'natish"
                     }
                 ]
             ]
         }
     })
+}
+
+
+async function changeOrganName (text) {
+    if (text == "🌿leaf => barg") {
+        process.organs.push("leaf")
+    }
+    else if (text == "🌸flower => gul") {
+        process.organs.push("flower")
+    }
+    else if (text == "🍏fruit => meva") {
+        process.organs.push("fruit")
+    }
+    else if (text == "root => ildiz") {
+        process.organs.push("root")
+    }
+}
+
+
+async function mainMenuBtn (text, bot, psql, user) {
+    try {
+        bot.sendMessage(user.chat_id, "Siz muvaffaqiyatli ro'yxatdan o'tdingiz. Siz endi bizning xizmatlardan bemalol fodalanishingiz mumkin", {
+            reply_markup: {
+                remove_keyboard: true,
+                resize_keyboard: true,
+                keyboard: [
+                    [
+                        {
+                            text: "🖼Rasm bilan qidirish",
+                        },
+                        {
+                            text: "Wikipediadan qidirish",
+                        }
+                    ],
+                    [
+                        {
+                            text: "Mening rasmlarim"
+                        }
+                    ]
+                ]
+            }
+        })
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 
@@ -145,5 +170,7 @@ async function notificationPic (bot, psql, user) {
 export {
     setEmail,
     chackCode,
-    notificationPic
+    mainMenuBtn,
+    notificationPic,
+    changeOrganName
 }

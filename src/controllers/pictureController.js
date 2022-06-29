@@ -1,10 +1,40 @@
+import { find } from '../utils/checker.js'
 
-
+ 
 
 async function pictureController (msg, bot, psql) {
-    
-    let file = await bot.getFile(msg.photo[0].file_id)
-    console.log(file);
+    try {
+        const chat_id = msg.chat.id
+
+        const user = await psql.user.findOne({
+            where: {
+                chat_id: chat_id,
+            }
+        })
+
+        if (user.step == 3) {
+            
+            if (process.pictures.length == process.organs.length) {
+
+                let messageInfo = await bot.sendMessage(chat_id, "Yuklanmoqda...")
+                let url = await bot.downloadFile(msg.photo[msg.photo.length - 1].file_id, './images')
+                process.pictures.push(url)
+                bot.deleteMessage(chat_id, messageInfo.message_id)
+            }
+            else {
+                bot.sendMessage(chat_id, "Rasm yuborilgandan keyin yuqoridagi rasmda qaysi organ aks etganini ko'rsatish kerak")
+            }
+
+        }
+        else {
+            bot.sendMessage(chat_id, "Kutilmagan ma'lumot kiritildi")
+        }
+
+        
+    }
+    catch (error) {
+        console.log(error.message)
+    }
 }
 
 
