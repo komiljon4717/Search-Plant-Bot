@@ -1,6 +1,4 @@
-import { find } from '../utils/checker.js'
 
- 
 
 async function pictureController (msg, bot, psql) {
     try {
@@ -14,22 +12,15 @@ async function pictureController (msg, bot, psql) {
 
         if (user.step == 3) {
             
-            if (process.pictures.length == process.organs.length) {
-
-                let messageInfo = await bot.sendMessage(chat_id, "Yuklanmoqda...")
-                let url = await bot.downloadFile(msg.photo[msg.photo.length - 1].file_id, './images')
-                process.pictures.push(url)
-                bot.deleteMessage(chat_id, messageInfo.message_id)
-            }
-            else {
-                bot.sendMessage(chat_id, "Rasm yuborilgandan keyin yuqoridagi rasmda qaysi organ aks etganini ko'rsatish kerak")
-            }
+            let messageInfo = await bot.sendMessage(chat_id, "Yuklanmoqda...")
+            let url = await bot.downloadFile(msg.photo[msg.photo.length - 1].file_id, './images')
+            process.pictures.push(url)
+            bot.deleteMessage(user.chat_id, messageInfo.message_id)
 
         }
         else {
             bot.sendMessage(chat_id, "Kutilmagan ma'lumot kiritildi")
         }
-
         
     }
     catch (error) {

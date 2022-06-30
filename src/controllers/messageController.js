@@ -35,19 +35,13 @@ async function messageController (msg, bot, psql) {
         else if (user.step == 3 && text == "🖼Rasm bilan qidirish" ) {
             await notificationPic(bot, psql, user)
         }
-        else if ( user.step == 3 && btns.includes(text) ) {
-            if (process.pictures.length == (process.organs.length + 1)) {
-                changeOrganName(text)
-            }
-            else{
-                bot.sendMessage(chat_id, "Yuklangan rasmda qaysi organ borligini ko'rsatilgandan keyin yana rasm yuklash kerak yoki <b><i>Jo'natish</i></b> tugmasini bosish kerak", {parse_mode: "HTML"})
-            }
-        }
         else if ( user.step == 3 && text == "📤Jo'natish" ) {
             find(bot, psql, user)
         }
         else if ( user.step == 3 && text == "Bekor qilish" ) {
             cancelBtn(bot, psql, user)
+        }else if ( user.step == 3 && text == "Orqaga" ) {
+            mainMenuBtn(text, bot, psql, user)
         }
         else {
             if (user.step == 3 || user.step == 3 && text == "/start") {

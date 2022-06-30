@@ -4,13 +4,19 @@ import axios from 'axios'
 import FormData from 'form-data'
 import key from '../config.js'
 
-
+async function full (){
+	for (let i = 0; i < process.pictures.length; i++) {
+		process.organs.push("auto")
+		
+	}
+}
 
 
 async function find(bot, psql, user){
+	full()
 
 	try {
-		if( process.pictures.length == process.organs.length && process.pictures.length <= 5 && process.organs.length <= 5 ){
+		if( process.pictures.length <= 5 && process.organs.length <= 5 && process.pictures.length > 0 && process.organs.length > 0 ){
 
 			let messageInfo = await bot.sendMessage(user.chat_id, "Yuklanmoqda...")
 
@@ -22,7 +28,6 @@ async function find(bot, psql, user){
 				form.append('images', fs.createReadStream(process.cwd() + `/${process.pictures[i]}`));
 			}
 
-		
 
 			const { status, data } = await axios.post(
 					`https://my-api.plantnet.org/v2/identify/all?api-key=${key.API_KEY}`,
