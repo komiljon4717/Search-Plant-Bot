@@ -108,24 +108,6 @@ async function notificationPic (bot, psql, user) {
     })
 }
 
-// ======================================================
-
-async function changeOrganName (text, bot, psql, user) {
-    if (text == "🌿leaf => barg") {
-        process.organs.push("leaf")
-    }
-    else if (text == "🌸flower => gul") {
-        process.organs.push("flower")
-    }
-    else if (text == "🍏fruit => meva") {
-        process.organs.push("fruit")
-    }
-    else if (text == "auto => auto") {
-        process.organs.push("auto")
-    }
-    deleteBtn(bot, psql, user)
-}
-
 // ============================================================
 
 async function mainMenuBtn (text, bot, psql, user) {
@@ -140,7 +122,7 @@ async function mainMenuBtn (text, bot, psql, user) {
                             text: "🖼Rasm bilan qidirish",
                         },
                         {
-                            text: "Wikipediadan qidirish",
+                            text: "GBIF bilan qidirish",
                         }
                     ],
                     [
@@ -165,63 +147,36 @@ async function cancelBtn (bot, psql, user) {
 }
 
 // =================================================================================
-
-async function deleteBtn (bot, psql, user) {
-    bot.sendMessage(user.chat_id, "Yana rasm yuring yoki Jo'natish tugmasini bosing", {
-        reply_markup: {
-            remove_keyboard: true,
-        }
-    })
+async function gbif (text, bot, psql, user) {
+    let gbif = text.trim()
+    console.log(gbif.slice(6, gbif.length - 1));
+    bot.sendMessage(user.chat_id, "text")
 }
 
-// ===============================================================
-
-async function addBtn (bot, psql, user) {
-    bot.sendMessage(user.chat_id, "Pastdagi tugmalar orqali organ nomini kiriting: ", {
+async function gbifBtn (bot, user) {
+    bot.sendMessage(user.chat_id, "GBIFni quyidagi ko'rinishda yuboring\nMasalan: GBIF: 1234567", {
         reply_markup: {
             remove_keyboard: true,
             resize_keyboard: true,
             keyboard: [
                 [
                     {
-                        text: "🌿leaf => barg"
-                    },
-                    {
-                        text:"🌸flower => gul"
-                    },
-                ],
-                [
-                    {
-                        text: "🍏fruit => meva"
-                    },
-                    {
-                        text: "auto => auto"
+                        text: "GBIFni yuborish",
                     }
                 ],
-                [
-                    {
-                        text: "📤Jo'natish"
-                    },
-                    {
-                        text: "Bekor qilish"
-                    }
-                ]
+                
             ]
         }
     })
 }
 
 
-
-
-
 export {
-    addBtn,
+    gbif,
+    gbifBtn,
     setEmail,
     cancelBtn,
-    deleteBtn,
     chackCode,
     mainMenuBtn,
     notificationPic,
-    changeOrganName
 }

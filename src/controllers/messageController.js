@@ -1,14 +1,12 @@
-import { setEmail, chackCode, notificationPic, changeOrganName, mainMenuBtn, cancelBtn } from "./functions.js"
+import { setEmail, chackCode, notificationPic, mainMenuBtn, cancelBtn, gbif, gbifBtn } from "./functions.js"
 import { find } from "../utils/checker.js"
 
 
 async function messageController (msg, bot, psql) {
     try {
 
-        const btns = ["🌿leaf => barg", "🌸flower => gul", "🍏fruit => meva", "auto => auto"]
-
         const chat_id = msg.chat.id
-        const text = msg.text
+        const text = msg.text.trim()
         const first_name = msg.from.first_name
         const last_name =  msg.from.last_name
 
@@ -27,13 +25,19 @@ async function messageController (msg, bot, psql) {
             bot.sendMessage(chat_id, `Assalomu alaykum <b>${first_name} ${last_name} <i>Search Plant</i></b> botga xush kelibsiz! Botdan to'liq boydalinish uchun elektron pochtangizni bizga yuboring!`, {parse_mode: "HTML"})
         }
         else if (user.step == 1) {
-            await setEmail(text, bot, psql, user)
+            setEmail(text, bot, psql, user)
         }
         else if (user.step == 2 ) {
-            await chackCode(text, bot, psql, user)
+            chackCode(text, bot, psql, user)
         }
         else if (user.step == 3 && text == "🖼Rasm bilan qidirish" ) {
-            await notificationPic(bot, psql, user)
+            notificationPic(bot, psql, user)
+        }
+        else if (user.step == 3 && text == "GBIF bilan qidirish" ) {
+            gbifBtn(bot, user)
+        }
+        else if (user.step == 3 && text.match(/(GBIF: [0-9]{7})/) ) {
+            gbif(text, bot, psql, user)
         }
         else if ( user.step == 3 && text == "📤Jo'natish" ) {
             find(bot, psql, user)

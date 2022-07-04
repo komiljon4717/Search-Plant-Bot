@@ -25,4 +25,4 @@ async function db (query, ...params) {
     }
 }
 
-export default db
+// export default db
