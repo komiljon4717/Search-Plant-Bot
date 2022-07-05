@@ -67,7 +67,7 @@ async function find(bot, psql, user){
 		}else {
 			process.pictures = []
 			process.organs = []
-			bot.sendMessage(user.chat_id, "Kiritilishi kerak bo'lgan rasmlar soni 5 tadan oshmasligi kerak va rasm va organlar soni ham teng bo'lishi kerak")
+			bot.sendMessage(user.chat_id, "Kiritilishi kerak bo'lgan rasmlar soni 5 tadan oshmasligi kerak")
 		}
 
 	} catch (error) {
