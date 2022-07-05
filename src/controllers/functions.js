@@ -1,7 +1,6 @@
 import { sendMailer } from '../utils/sendmailer.js'
 
 
-
 // ------------------------------------------------------
 
 async function setEmail (text, bot, psql, user) {
@@ -144,10 +143,11 @@ async function cancelBtn (bot, psql, user) {
 // =================================================================================
 
 async function gbif (text, bot, psql, user) {
+
     let gbif = text.trim()
     const shrift = gbif.slice(6, 13)
-    // console.log(shrift);
-    let link = `https://www.gbif.org/species/${shrift}`
+    const link = `https://www.gbif.org/species/${shrift}`
+
     bot.sendMessage(user.chat_id, "URLni ochish uchun bosing", {
         reply_markup: {
             remove_keyboard: true,

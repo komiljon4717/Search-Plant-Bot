@@ -22,7 +22,7 @@ async function messageController (msg, bot, psql) {
                 first_name: first_name,
                 last_name: last_name,
             })
-            bot.sendMessage(chat_id, `Assalomu alaykum <b>${first_name} ${last_name} <i>Search Plant</i></b> botga xush kelibsiz! Botdan to'liq boydalinish uchun elektron pochtangizni bizga yuboring!`, {parse_mode: "HTML"})
+            bot.sendMessage(chat_id, `Assalomu alaykum ${first_name || ""} ${last_name || ""} Search Plant botga xush kelibsiz! Botdan to'liq boydalinish uchun elektron pochtangizni bizga yuboring!`)
         }
         else if (user.step == 1) {
             setEmail(text, bot, psql, user)
