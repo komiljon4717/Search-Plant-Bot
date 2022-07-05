@@ -124,11 +124,6 @@ async function mainMenuBtn (text, bot, psql, user) {
                         {
                             text: "GBIF bilan qidirish",
                         }
-                    ],
-                    [
-                        {
-                            text: "Mening rasmlarim"
-                        }
                     ]
                 ]
             }
@@ -147,11 +142,30 @@ async function cancelBtn (bot, psql, user) {
 }
 
 // =================================================================================
+
 async function gbif (text, bot, psql, user) {
     let gbif = text.trim()
-    console.log(gbif.slice(6, gbif.length - 1));
-    bot.sendMessage(user.chat_id, "text")
+    const shrift = gbif.slice(6, 13)
+    // console.log(shrift);
+    let link = `https://www.gbif.org/species/${shrift}`
+    bot.sendMessage(user.chat_id, "URLni ochish uchun bosing", {
+        reply_markup: {
+            remove_keyboard: true,
+            resize_keyboard: true,
+            inline_keyboard: [
+                [
+                    {
+                        text: "Havolani ochish",
+                        url: link
+                    }
+                ],
+                
+            ]
+        }
+    })
 }
+
+// =======================================================================
 
 async function gbifBtn (bot, user) {
     bot.sendMessage(user.chat_id, "GBIFni quyidagi ko'rinishda yuboring\nMasalan: GBIF: 1234567", {
@@ -161,7 +175,7 @@ async function gbifBtn (bot, user) {
             keyboard: [
                 [
                     {
-                        text: "GBIFni yuborish",
+                        text: "Orqaga",
                     }
                 ],
                 

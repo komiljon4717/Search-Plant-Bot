@@ -18,6 +18,5 @@ async function main () {
     await bot.on('photo', (msg) => pictureController(msg, bot, psql));
     console.log("main run");
 
-
 }
 main()
