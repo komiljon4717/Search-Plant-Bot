@@ -1,4 +1,5 @@
 import { sendMailer } from '../utils/sendmailer.js'
+import fs from "fs"
 
 
 // ------------------------------------------------------
@@ -35,6 +36,7 @@ async function setEmail (text, bot, psql, user) {
         if (error.message == "Validation error") {
             bot.sendMessage(user.chat_id, `${text} bu emaildan allaqachon foydalanilgan. Boshqa emaildan foydalaning`)
         }
+        writeLogFile(error.message)
         console.log(error.message);
     }
 }
@@ -61,6 +63,7 @@ async function chackCode (text, bot, psql, user) {
             bot.sendMessage(user.chat_id, "Siz noto'g'ri kod kiritdingiz iltimos qaytadan kiriting")
         }
     } catch (error) {
+        writeLogFile(error.message)
         console.log("chack code function");
         console.log(error.message);
     }
@@ -85,6 +88,7 @@ async function back (bot, psql, user) {
             }
         })
     } catch (error) {
+        writeLogFile(error.message)
         console.log("back function");
         console.log(error.message);
     }
@@ -117,6 +121,7 @@ async function notificationPic (bot, psql, user) {
             }
         })
     } catch (error) {
+        writeLogFile(error.message)
         console.log("notification function");
         console.log(error.message);
     }
@@ -146,6 +151,7 @@ async function mainMenuBtn (text, bot, psql, user) {
             }
         })
     } catch (error) {
+        writeLogFile(error.message)
         console.log("mainMenuBtn function");
         console.log(error.message);
     }
@@ -159,6 +165,7 @@ async function cancelBtn (bot, psql, user) {
         process.organs = []
         bot.sendMessage(user.chat_id, "Rasm va ma'lumotlarni qaytadan kiriting")
     } catch (error) {
+        writeLogFile(error.message)
         console.log("cancelBtn function");
         console.log(error.message);
     }
@@ -189,6 +196,7 @@ async function gbif (text, bot, psql, user) {
             }
         })
     } catch (error) {
+        writeLogFile(error.message)
         console.log("gbif function");
         console.log(error.message);
     }
@@ -213,9 +221,25 @@ async function gbifBtn (bot, user) {
             }
         })
     } catch (error) {
+        writeLogFile(error.message)
         console.log("gbifBtn function");
         console.log(error.message);
     }
+}
+
+// ==============================================================================
+
+function writeLogFile (message) {
+
+    let date = new Date().toString()
+
+    fs.appendFile(path.join(process.cwd(),"./log.txt"), `${date}\n${message}\n`, (err, data) =>{
+        if (err) {
+            console.log(err);
+        }else{
+            console.log("Error log fayliga yozildi.");
+        }
+    })
 }
 
 
@@ -226,5 +250,6 @@ export {
     cancelBtn,
     chackCode,
     mainMenuBtn,
+    writeLogFile,
     notificationPic,
 }

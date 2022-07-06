@@ -1,4 +1,4 @@
-import { setEmail, chackCode, notificationPic, mainMenuBtn, cancelBtn, gbif, gbifBtn } from "./functions.js"
+import { setEmail, chackCode, notificationPic, mainMenuBtn, cancelBtn, gbif, gbifBtn, writeLogFile } from "./functions.js"
 import { find } from "../utils/checker.js"
 
 
@@ -55,6 +55,7 @@ async function messageController (msg, bot, psql) {
             }
         }
     } catch (error) {
+        writeLogFile(error.message)
         console.log("message controller");
         console.log(error.message);
     }

@@ -4,6 +4,8 @@ import axios from 'axios'
 import FormData from 'form-data'
 import key from '../config.js'
 
+import { writeLogFile } from "../controllers/functions.js"
+
 async function full (){
 	for (let i = 0; i < process.pictures.length; i++) {
 		process.organs.push("auto")
@@ -75,6 +77,7 @@ async function find(bot, psql, user){
 		}
 
 	} catch (error) {
+		writeLogFile(error.message)
 		console.log("checker");
 		console.error(error.message);
 	}

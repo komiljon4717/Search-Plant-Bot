@@ -1,6 +1,7 @@
 import  { codeGenerator }  from './codeGenerator.js'
 import nodemailer from 'nodemailer'
 import config from '../config.js'
+import { writeLogFile } from '../controllers/functions.js'
 
 const myEmail = config.emailaddress
 
@@ -34,6 +35,7 @@ function sendMailer(email) {
             html: "<b>Verification code: </b>" + code,
         })
     } catch (error) {
+        writeLogFile(error.message)
         console.log("sendMailer");
         console.log(error.message);
     }

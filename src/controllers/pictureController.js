@@ -1,4 +1,4 @@
-
+import { writeLogFile } from "./functions.js"
 
 async function pictureController (msg, bot, psql) {
     try {
@@ -24,6 +24,7 @@ async function pictureController (msg, bot, psql) {
         
     }
     catch (error) {
+        writeLogFile(error.message)
         console.log("picture controller");
         console.log(error.message)
     }
