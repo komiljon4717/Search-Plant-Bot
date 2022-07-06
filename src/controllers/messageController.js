@@ -55,7 +55,8 @@ async function messageController (msg, bot, psql) {
             }
         }
     } catch (error) {
-        console.log("dang", error.message);
+        console.log("message controller");
+        console.log(error.message);
     }
 }
 

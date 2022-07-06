@@ -10,7 +10,7 @@ async function pictureController (msg, bot, psql) {
             }
         })
 
-        if (user.step == 3) {
+        if (user && user.step == 3) {
             
             let messageInfo = await bot.sendMessage(chat_id, "Yuklanmoqda...")
             let url = await bot.downloadFile(msg.photo[msg.photo.length - 1].file_id, './images')
@@ -24,6 +24,7 @@ async function pictureController (msg, bot, psql) {
         
     }
     catch (error) {
+        console.log("picture controller");
         console.log(error.message)
     }
 }

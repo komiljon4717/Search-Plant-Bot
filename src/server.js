@@ -12,11 +12,21 @@ const bot = new TelegramBot(token.TOKEN, {polling: true});
 
 
 async function main () {
+    try {
 
-    const psql = await database()
-    await bot.on('text', (msg) => messageController(msg, bot, psql));
-    await bot.on('photo', (msg) => pictureController(msg, bot, psql));
-    console.log("main run");
+        bot.on('polling_error', (error) => {
+            console.log(error.code);  // => 'EFATAL'
+        });
+
+
+        const psql = await database()
+        bot.on('text', (msg) => messageController(msg, bot, psql));
+        bot.on('photo', (msg) => pictureController(msg, bot, psql));
+        console.log("main run");
+    } catch (error) {
+        console.log("server");
+        console.log(error.message);
+    }
 
 }
 main()

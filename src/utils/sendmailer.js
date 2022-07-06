@@ -1,7 +1,6 @@
 import  { codeGenerator }  from './codeGenerator.js'
 import nodemailer from 'nodemailer'
 import config from '../config.js'
-import fs from 'fs'
 
 const myEmail = config.emailaddress
 
@@ -32,9 +31,10 @@ function sendMailer(email) {
             to: email,
             subject: "Search Plant Bot",
             text: "Verification code",
-            html: "<b>Verification code:</b>" + code,
+            html: "<b>Verification code: </b>" + code,
         })
     } catch (error) {
+        console.log("sendMailer");
         console.log(error.message);
     }
     

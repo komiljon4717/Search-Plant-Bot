@@ -64,6 +64,10 @@ async function find(bot, psql, user){
 			else {
 				bot.sendMessage(user.chat_id, "Ma'lumot topilmadi")
 			}
+		}else if (process.pictures.length == 0 && process.organs.length == 0){
+			process.pictures = []
+			process.organs = []
+			bot.sendMessage(user.chat_id, "Siz hechqanday rasm yuklamadingiz. Iltimos rasm yuklab keyin jo'natish tugmasini bosing")
 		}else {
 			process.pictures = []
 			process.organs = []
@@ -71,8 +75,8 @@ async function find(bot, psql, user){
 		}
 
 	} catch (error) {
-		console.log("dang");
-		console.error('error', error.message);
+		console.log("checker");
+		console.error(error.message);
 	}
 }
 
