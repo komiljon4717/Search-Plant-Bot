@@ -16,7 +16,7 @@ async function main () {
     try {
 
         bot.on('polling_error', (error) => {
-            console.log(error.code);
+            console.log(error.message);
         });
 
 
