@@ -1,16 +1,4 @@
--- initialization (just copy and paste)
 
--- connect to another db
-\c postgres;
-
--- drop database if exists
-drop database if exists transport;
-
--- create database transport
-create database transport;
-
--- connect to database transport
-\c transport;
 
 ----------------------------------------------------------
 -- model
